@@ -37,7 +37,7 @@ Ouvrez votre terminal dans le dossier du projet et exécutez :
       Cliquez sur Créer.
 3. Importer la structure SQL
       Cliquez sur l'onglet SQL dans phpMyAdmin et collez le script suivant pour créer les tables et les données de base :
-            -- CRÉATION DES TABLES
+           
             CREATE TABLE user (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 username VARCHAR(50) UNIQUE NOT NULL,
@@ -112,10 +112,12 @@ Assurez-vous que la connexion à la base de données dans app.py est correcte :
     app.config["SQLALCHEMY_DATABASE_URI"] = "mysql+pymysql://root:@localhost/maintenance_db"
 (Si vous avez mis un mot de passe à MySQL sur XAMPP, ajoutez-le après root:).
 Lancez le serveur Python :
-    Bash : python app.py
+      
+      python app.py
 
 Ouvrez votre navigateur à l'adresse :
-👉 http://127.0.0.1:5000
+
+      http://127.0.0.1:5000
 
 Créer le premier Administrateur
 Par défaut, l'inscription crée un compte "EMPLOYEE". Pour créer votre premier Admin :
@@ -129,16 +131,17 @@ Reconnectez-vous sur le site : vous avez maintenant accès au menu "Gestion Util
 
 📂 Structure du Projet
 /Projet_Maintenance
-│
-├── app.py                 # Le cœur de l'application (Backend Flask)
-├── README.md              # Documentation
-│
-└── templates/             # Dossier des pages HTML
-    ├── base.html          # Squelette commun (Navbar, Footer)
-    ├── login.html         # Page de connexion
-    ├── register.html      # Page d'inscription
-    ├── dashboard.html     # Tableau de bord (Tickets)
-    ├── create_ticket.html # Formulaire de création
-    ├── ticket_detail.html # Vue détaillée et traitement
-    ├── admin_users.html   # Liste des utilisateurs (Admin)
-    └── edit_user.html     # Modification utilisateur (Admin)
+
+      │
+      ├── app.py                 # Le cœur de l'application (Backend Flask)
+      ├── README.md              # Documentation
+      │
+      └── templates/             # Dossier des pages HTML
+          ├── base.html          # Squelette commun (Navbar, Footer)
+          ├── login.html         # Page de connexion
+          ├── register.html      # Page d'inscription
+          ├── dashboard.html     # Tableau de bord (Tickets)
+          ├── create_ticket.html # Formulaire de création
+          ├── ticket_detail.html # Vue détaillée et traitement
+          ├── admin_users.html   # Liste des utilisateurs (Admin)
+          └── edit_user.html     # Modification utilisateur (Admin)
