@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h4>Modifier l'utilisateur : {{ user.username }}</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label>Nom Complet</label>
+                        <input type="text" name="fullname" class="form-control" value="{{ user.full_name }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" value="{{ user.email }}" required>
+                    </div>
+                    <div class="mb-3">
+                        <label>Nom d'utilisateur</label>
+                        <input type="text" name="username" class="form-control" value="{{ user.username }}" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="fw-bold">Rôle (Niveau d'accès)</label>
+                        <select name="role" class="form-select">
+                            <option value="EMPLOYEE" {% if user.role == 'EMPLOYEE' %}selected{% endif %}>EMPLOYEE (Demandeur)</option>
+                            <option value="TECHNICIAN" {% if user.role == 'TECHNICIAN' %}selected{% endif %}>TECHNICIAN (Peut traiter les tickets)</option>
+                            <option value="ADMIN" {% if user.role == 'ADMIN' %}selected{% endif %}>ADMIN (Accès total)</option>
+                        </select>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ url_for('manage_users') }}" class="btn btn-secondary">Annuler</a>
+                        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

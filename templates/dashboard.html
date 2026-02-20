@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Tableau de bord</h2>
+    <a href="{{ url_for('create_ticket') }}" class="btn btn-success">+ Nouveau Ticket</a>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Titre</th>
+                    <th>Catégorie</th>
+                    <th>Priorité</th>
+                    <th>Statut</th>
+                    <th>Demandeur</th>
+                    <th>Technicien</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in tickets %}
+                <tr>
+                    <td>#{{ ticket.id }}</td>
+                    <td>{{ ticket.title }}</td>
+                    <td>{{ ticket.category.name }}</td>
+                    <td>
+                        <span class="badge {% if ticket.priority.level == 3 %}bg-danger{% elif ticket.priority.level == 2 %}bg-warning{% else %}bg-secondary{% endif %}">
+                            {{ ticket.priority.name }}
+                        </span>
+                    </td>
+                    <td><span class="badge bg-{{ ticket.status.color }}">{{ ticket.status.name }}</span></td>
+                    <td>{{ ticket.requester.full_name }}</td>
+                    <td>{{ ticket.technician.full_name if ticket.technician else 'Non assigné' }}</td>
+                    <td><a href="{{ url_for('ticket_detail', id=ticket.id) }}" class="btn btn-sm btn-primary">Voir</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+    <!-- Détails du Ticket -->
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between">
+                <h4>{{ ticket.title }}</h4>
+                <span class="badge bg-{{ ticket.status.color }} fs-6">{{ ticket.status.name }}</span>
+            </div>
+            <div class="card-body">
+                <p><strong>Description :</strong></p>
+                <p class="p-3 bg-light border rounded">{{ ticket.description }}</p>
+                <div class="row text-muted">
+                    <div class="col">Catégorie: {{ ticket.category.name }}</div>
+                    <div class="col">Priorité: {{ ticket.priority.name }}</div>
+                    <div class="col">Date: {{ ticket.created_at.strftime('%d/%m/%Y %H:%M') }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Commentaires -->
+        <h5>Interventions / Commentaires</h5>
+        {% for comment in ticket.comments %}
+            <div class="card mb-2">
+                <div class="card-body py-2">
+                    <strong>{{ comment.user.full_name }}</strong> <small class="text-muted">- {{ comment.created_at.strftime('%d/%m %H:%M') }}</small>
+                    <p class="mb-0">{{ comment.content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+
+        <form method="POST" class="mt-3">
+            <textarea name="content" class="form-control mb-2" placeholder="Ajouter un commentaire..." required></textarea>
+            <button type="submit" class="btn btn-secondary">Envoyer</button>
+        </form>
+    </div>
+
+    <!-- Panneau de Gestion (Admin/Tech) -->
+    <div class="col-md-4">
+        {% if current_user.role in ['ADMIN', 'TECHNICIAN'] %}
+        <div class="card bg-light">
+            <div class="card-header">Gestion Technicienne</div>
+            <div class="card-body">
+                <form method="POST">
+                    <label>Changer Statut</label>
+                    <select name="status_id" class="form-select mb-3">
+                        {% for status in statuses %}
+                        <option value="{{ status.id }}" {% if ticket.status_id == status.id %}selected{% endif %}>
+                            {{ status.name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+
+                    {% if current_user.role == 'ADMIN' %}
+                    <label>Assigner à</label>
+                    <select name="technician_id" class="form-select mb-3">
+                        <option value="">-- Non assigné --</option>
+                        {% for tech in technicians %}
+                        <option value="{{ tech.id }}" {% if ticket.assigned_to == tech.id %}selected{% endif %}>
+                            {{ tech.full_name }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                    {% endif %}
+                    
+                    <button type="submit" class="btn btn-primary w-100">Mettre à jour</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

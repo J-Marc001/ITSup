@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Créer un compte</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('register') }}">
+                    <div class="mb-3">
+                        <label for="fullname" class="form-label">Nom complet</label>
+                        <input type="text" class="form-control" id="fullname" name="fullname" required placeholder="Ex: Jean Dupont">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Nom d'utilisateur</label>
+                        <input type="text" class="form-control" id="username" name="username" required placeholder="Ex: jdupont">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required placeholder="Ex: jean@entreprise.com">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Mot de passe</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">S'inscrire</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                Déjà un compte ? <a href="{{ url_for('login') }}">Se connecter</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
